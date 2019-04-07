@@ -1,6 +1,6 @@
 # apprentissage
 
-projet cours apprentissage artificiel - M1 info
+projet cours apprentissage artificiel - M1 info avec Daniel Campos do Nascimento
 
 Réalisé en python avec jupyter notebook.
 
@@ -17,3 +17,9 @@ Pour lancer le code de toute la page vous pouvez cliquer sur 'Noyau' dans les on
 Le fichier notebook est `comparaison_algo_classification.ipynb̀`, le rapport est écrit entre les cellules, vous trouverez aussi une version pdf ainsi que le fichier .tex pour la générer et une verion markdown.
 
 Il est aussi possible de lancer la version `comparaison_algo_classification.pỳ` en ligne de commande mais les tableaux ne seront pas affichés.
+
+
+# Github
+
+Vous pourrez trouver le code avec les sorties et un affichage correct sans installer annaconda ou jupyter à l'adresse suivante : https://github.com/Cyril-Grl/apprentissage
+

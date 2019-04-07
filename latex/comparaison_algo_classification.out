@@ -1,0 +1,14 @@
+\BOOKMARK [1][-]{section.1}{Projet Apprentissage}{}% 1
+\BOOKMARK [1][-]{section.2}{READ ME}{}% 2
+\BOOKMARK [1][-]{section.3}{Biblioth\350ques}{}% 3
+\BOOKMARK [1][-]{section.4}{Donn\351es}{}% 4
+\BOOKMARK [1][-]{section.5}{S\351paration des donn\351es d'entrainement et de test}{}% 5
+\BOOKMARK [1][-]{section.6}{Cross validation}{}% 6
+\BOOKMARK [1][-]{section.7}{Algorithmes de classification}{}% 7
+\BOOKMARK [2][-]{subsection.7.1}{DecisionTreeClassifier}{section.7}% 8
+\BOOKMARK [2][-]{subsection.7.2}{KNeighborsClassifier}{section.7}% 9
+\BOOKMARK [2][-]{subsection.7.3}{RandomForestClassifier}{section.7}% 10
+\BOOKMARK [1][-]{section.8}{DecisionTreeClassifier}{}% 11
+\BOOKMARK [1][-]{section.9}{KNeighborsClassifier}{}% 12
+\BOOKMARK [1][-]{section.10}{RandomForestClassifier}{}% 13
+\BOOKMARK [1][-]{section.11}{Autres possibilit\351s}{}% 14

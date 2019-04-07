@@ -1,0 +1,876 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{comparaison\_algo\_classification}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Projet Apprentissage}\label{projet-apprentissage}
+
+\section{READ ME}\label{read-me}
+
+projet cours apprentissage artificiel - M1 info
+
+Réalisé en python avec jupyter notebook.
+
+Jupyter notebook est installé de base avec Anaconda (ainsi que beaucoup
+de bibliothèques utiles pour le machine learning). je vous conseille
+donc d'installer Anaconda avec le lien suivant :
+
+https://www.anaconda.com/distribution/
+
+La version de python utilisée est la 3.7.
+
+Ouvrez ensuite Anaconda navigator et cliquez sur launch de Jupyter
+Notebook, une nouvelle fenetre de votre navigateur internet s'ouvrira
+avec une interface sur le HOME de votre machine, recherchez le fichier
+comparaison\_algo\_classification.ipynb et ouvrez le.
+
+Pour lancer le code de toute la page vous pouvez cliquer sur 'Noyau'
+dans les onglets de l'interface puis 'Redémarrer et tout exécuter".
+Sinon pour interpreter cellule par cellule faites Shift+Entrer sur la
+cellule à interpreter.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \section{Bibliothèques}\label{bibliothuxe8ques}
+
+Dans la cellule suivante vous trouverez toutes les bibliothèques
+utilisées dans ce projet.
+
+\begin{verbatim}
+La version de Python est la 3.7.1,
+La version de Pandas est la 0.23.4, utilisée pour afficher les tableaux,
+La version de Matplotlib est la 3.0.2, utilisée pour l'affichage des graphes,
+La version de Numpy est la 1.15.4, utilisée pour les matrices des données,
+La version de sklearn (scikit-learn) est la 0.20.1, utilisée pour importer les données et classifieurs.
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versions des différents outils utilisés :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Python version: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{version}\PY{p}{)}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pandas version: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{matplotlib version: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NumPy version: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scikit\PYZhy{}learn version: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sklearn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{AdaBoostClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics}\PY{n+nn}{.}\PY{n+nn}{scorer} \PY{k}{import} \PY{n}{check\PYZus{}scoring}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}validate}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}iris}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}digits}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}wine}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}breast\PYZus{}cancer}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Versions des différents outils utilisés :
+Python version: 3.7.1 (default, Dec 14 2018, 19:28:38) 
+[GCC 7.3.0]
+pandas version: 0.23.4
+matplotlib version: 3.0.2
+NumPy version: 1.15.4
+scikit-learn version: 0.20.1
+
+    \end{Verbatim}
+
+    \section{Données}\label{donnuxe9es}
+
+Les données utilisées sont les suivantes :
+
+\begin{verbatim}
+- iris (iris)
+\end{verbatim}
+
+https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load\_iris.html\#sklearn.datasets.load\_iris)
+
+\begin{verbatim}
+- chiffres (chiffre)
+\end{verbatim}
+
+https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load\_digits.html\#sklearn.datasets.load\_digits
+
+\begin{verbatim}
+- vin (vin)
+\end{verbatim}
+
+https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load\_wine.html\#sklearn.datasets.load\_wine
+
+\begin{verbatim}
+- cancer du sein (cancer)
+\end{verbatim}
+
+https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load\_breast\_cancer.html\#sklearn.datasets.load\_breast\_cancer
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+La fonction \texttt{load(database="iris",\ affichage=True)} charge les
+données en fonction de la base souhaitée. Si affichage est vrai alors il
+affiche le descriptif des données fournis dans la classe.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{load}\PY{p}{(}\PY{n}{database}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{iris}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{affichage}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{database} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{iris}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{database} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chiffre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{load\PYZus{}digits}\PY{p}{(}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{database} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{load\PYZus{}wine}\PY{p}{(}\PY{p}{)}
+            \PY{k}{elif} \PY{n}{database} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cancer}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{load\PYZus{}breast\PYZus{}cancer}\PY{p}{(}\PY{p}{)}
+            \PY{k}{else} \PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Erreur}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{La base de donnée de base doit être :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZhy{} iris}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZhy{} chiffre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZhy{} vin}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZhy{} cancer}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La base de donnée utilisée sera celle des iris}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n}{data} \PY{o}{=} \PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+        
+            \PY{k}{if} \PY{n}{affichage} \PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DESCR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{data}
+\end{Verbatim}
+
+    \section{Séparation des données d'entrainement et de
+test}\label{suxe9paration-des-donnuxe9es-dentrainement-et-de-test}
+
+La fonction train\_test\_split vous renvoie les données de tests et les
+données d'apprentissage
+
+parametres :
+
+\begin{verbatim}
+data.data : matrice des données du jeu de données (par exemple la taille des sépals pour les iris),
+data.target : tableau des classes du jeu de données (data.target[i] correspond à la classe de la ligne i de la matrice des données),
+stratify : permet de séparer les lignes entre les données tests et apprentissage en fonction du tableau passé comme stratify (si c'est un tableau de 0 et 1 correspondant aux classes du jeu de donnée et qu'il contient 30% de 0 et 70% de 1 alors les jeux de tests et apprentissage contiendront 30% de 0 et 70% de 1),
+test_size : proportion de donnée dans le jeu de test (25% par défaut)
+random_state : donne le graine du générateur aléatoire pour la séparation des données
+\end{verbatim}
+
+retourne :
+
+\begin{verbatim}
+X_train : Données d'entrainement
+X_test  : Données de test
+y_train : classes des données d'entrainement
+y_test  : classes des données de tests
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Voici un exemple avec la base de donnée des vins :
+
+\begin{verbatim}
+Dans un premier temps nous chargeons les données chiffres, 
+puis nous séparons les données sur le jeu d'entrainement et le jeu de test,
+nous créons ensuite un arbre de décision (uniquement avec les critères de création de l'arbre),
+puis appelons la fonction fit avec le jeu d'apprentissage, ce qui génère l'arbre de décision vis à vis des critères renseignés précédemment,
+l'appel à la fonction score permet de tester les données passées en paramètre sur l'arbre et d'obtenir la précision obtenue sur le jeu.
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{data} \PY{o}{=} \PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chiffre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(} 
+            \PY{n}{data}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.33}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+        \PY{n}{tree} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}
+            \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{splitter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+            \PY{n}{min\PYZus{}weight\PYZus{}fraction\PYZus{}leaf}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{max\PYZus{}leaf\PYZus{}nodes}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} 
+            \PY{n}{min\PYZus{}impurity\PYZus{}decrease}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{min\PYZus{}impurity\PYZus{}split}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{presort}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        
+        \PY{n}{tree}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Précision sur le jeu d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{apprentissage: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{tree}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Précision sur le jeu de test: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{tree}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Précision sur le jeu d'apprentissage: 1.000
+Précision sur le jeu de test: 0.848
+
+    \end{Verbatim}
+
+    \section{Cross validation}\label{cross-validation}
+
+La fonction \texttt{cross\_val\_score} permet de réaliser la cross
+validation.
+
+https://scikit-learn.org/stable/modules/generated/sklearn.model\_selection.cross\_val\_score.html\#sklearn.model\_selection.cross\_val\_score
+
+\texttt{cross\_val\_score(estimator,\ X,\ y=None,\ groups=None,\ scoring=None,\ cv=’warn’,\ n\_jobs=None,\ verbose=0,\ fit\_params=None,\ pre\_dispatch=‘2*n\_jobs’,\ error\_score=’raise-deprecating’)}
+
+parametres:
+
+\begin{verbatim}
+estimator : le classifieur à utiliser (doit implementer la methode fit)
+X : donnees à utiliser (ex : iris.data)
+y : en cas de supervisation, la variable à predire
+cv : dans notre cas nous ne l'utiliserons que pour déterminer le nombre de plis
+\end{verbatim}
+
+retourne :
+
+\begin{verbatim}
+le tableau avec les estimations pour chaque tour de cross validation
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+De base, elle ne renvoie pas les arbres créés pendant la cross
+validation, il a donc fallu modifier legèrerement la methode
+cross\_val\_score de sklearn pour retourner les arbres générés après
+l'exécution de la fonction
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{cross\PYZus{}val\PYZus{}score\PYZus{}modif}\PY{p}{(}\PY{n}{estimator}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{groups}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{warn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                            \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{fit\PYZus{}params}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                            \PY{n}{pre\PYZus{}dispatch}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2*n\PYZus{}jobs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{error\PYZus{}score}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{raise\PYZhy{}deprecating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{n}{scorer} \PY{o}{=} \PY{n}{check\PYZus{}scoring}\PY{p}{(}\PY{n}{estimator}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{n}{scoring}\PY{p}{)}
+        
+            \PY{n}{cv\PYZus{}results} \PY{o}{=} \PY{n}{cross\PYZus{}validate}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{estimator}\PY{p}{,} \PY{n}{X}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{groups}\PY{o}{=}\PY{n}{groups}\PY{p}{,}
+                                        \PY{n}{scoring}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{scorer}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{cv}\PY{p}{,}
+                                        \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n}{n\PYZus{}jobs}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{n}{verbose}\PY{p}{,}
+                                        \PY{n}{fit\PYZus{}params}\PY{o}{=}\PY{n}{fit\PYZus{}params}\PY{p}{,}
+                                        \PY{n}{pre\PYZus{}dispatch}\PY{o}{=}\PY{n}{pre\PYZus{}dispatch}\PY{p}{,}
+                                        \PY{n}{error\PYZus{}score}\PY{o}{=}\PY{n}{error\PYZus{}score}\PY{p}{,} 
+                                        \PY{n}{return\PYZus{}estimator}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{k}{return} \PY{n}{cv\PYZus{}results}
+\end{Verbatim}
+
+    \section{Algorithmes de
+classification}\label{algorithmes-de-classification}
+
+Voici les différents algorithmes de classification que nous avons
+utilisé pour ce projet :
+
+\subsection{DecisionTreeClassifier}\label{decisiontreeclassifier}
+
+https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html
+
+Pour les arbres de décision, le paramètre que nous faisons varier est le
+nombre minimum d'élément dans les feuilles de l'arbre.
+
+\subsection{KNeighborsClassifier}\label{kneighborsclassifier}
+
+https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+
+Pour KNN, la variable sera le nombre de voisins à prendre en compte.
+
+\subsection{RandomForestClassifier}\label{randomforestclassifier}
+
+https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+
+Pour les forêts, plusieurs paramètres sont intéressants, nous avons
+choisi de modifier le nombre d'arbre dans la forêt avec un nombre
+d'éléments par feuille de 2 au minimum étant donné que c'est le meilleur
+résultat pour les arbres de décision.
+
+    \section{DecisionTreeClassifier}\label{decisiontreeclassifier}
+
+Dans la cellule suivante nous utilisons l'algorithme d'arbre de
+décision.
+
+Nous faisons varier le nombre de d'échantillons minimum dans chaque
+feuilles de 2 à 10\% du nombre de données.
+
+\begin{verbatim}
+Vous pouvez changer la base de donnée utilisée en changeant le parametre database à la ligne 2 ("iris" "chiffre" "vin" ou "cancer" ).
+Pour changer le nombre d'échantillon minimum par feuille max à tester modifiez la valeur de borne_max.
+Pour modifier le pas entre deux tests jouez avec la variable pas.
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{b} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{data} \PY{o}{=} \PY{n}{load}\PY{p}{(}\PY{n}{database}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chiffre}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{affichage}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{borne\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mf}{0.10}\PY{p}{)}
+        \PY{n}{pas} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mf}{0.10}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{nb\PYZus{}plis} \PY{o}{=} \PY{l+m+mi}{5}
+        
+        \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{nb\PYZus{}feuilles} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{size\PYZus{}tree} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Augmentation du nombre minimum d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{élément dans les feuilles de 2 à }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ avec un pas de }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{borne\PYZus{}max}\PY{p}{,}\PY{n}{pas}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Le temps d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{execution peut durer quelques secondes (le temps s}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{affiche quand le calcul est terminé)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{borne\PYZus{}max}\PY{p}{,}\PY{n}{pas}\PY{p}{)}\PY{p}{:}
+            \PY{n}{tree} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{n}{i}\PY{p}{)}
+            \PY{n}{result} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score\PYZus{}modif}\PY{p}{(}\PY{n}{tree}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{nb\PYZus{}plis}\PY{p}{)}
+            \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{nb\PYZus{}feuilles}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+            \PY{n}{taille} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{result}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{estimator}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+                \PY{n}{taille}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t}\PY{o}{.}\PY{n}{tree\PYZus{}}\PY{o}{.}\PY{n}{node\PYZus{}count}\PY{p}{)}
+            \PY{n}{size\PYZus{}tree}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{taille}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{e} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{e}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{size\PYZus{}tree}\PY{p}{,} \PY{n}{scores}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taille de l}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{arbre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pourcentage de Réussite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Arbre de décision}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Influence de la taille de l}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{arbre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{nb\PYZus{}feuilles}\PY{p}{,} \PY{n}{scores}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nb de feuilles min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pourcentage de Réussite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Arbre de décision}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Influence du nombre d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{échantillon minimum par feuille}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        \PY{n}{datapd} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nb échantillon minimum par feuille}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{nb\PYZus{}feuilles}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Taille de l}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{arbre}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{size\PYZus{}tree} \PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pourcentage de réussite}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{scores}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{p}{\PYZcb{}}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{datapd}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Augmentation du nombre minimum d'élément dans les feuilles de 2 à 179 avec un pas de 17
+Le temps d'execution peut durer quelques secondes (le temps s'affiche quand le calcul est terminé)
+0.714911937713623
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}     Nb échantillon minimum par feuille  Taille de l'arbre  \textbackslash{}
+        0                                    2                272   
+        1                                   19                135   
+        2                                   36                113   
+        3                                   53                105   
+        4                                   70                 93   
+        5                                   87                 74   
+        6                                  104                 62   
+        7                                  121                 45   
+        8                                  138                 36   
+        9                                  155                 27   
+        10                                 172                 23   
+        
+            Pourcentage de réussite  
+        0                  0.785834  
+        1                  0.764386  
+        2                  0.743152  
+        3                  0.737090  
+        4                  0.726379  
+        5                  0.720783  
+        6                  0.713022  
+        7                  0.725218  
+        8                  0.716329  
+        9                  0.701803  
+        10                 0.684505  
+\end{Verbatim}
+            
+    Comme vous pouvez le constater plus le nombre d'échantillon par feuille
+minimum augmente, plus la précision diminue, le meilleur cas est donc
+avec deux feuilles.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \section{KNeighborsClassifier}\label{kneighborsclassifier}
+
+Dans la cellule suivante nous utilisons l'algorithme KNN.
+
+Nous faisons varier le nombre de voisins pris en compte de 3 à 15\% du
+nombre de données.
+
+\begin{verbatim}
+Vous pouvez changer la base de donnée utilisée en changeant le parametre database à la ligne 2 ("iris" "chiffre" "vin" ou "cancer" ).
+Pour changer le nombre de voisins max à tester modifiez la valeur de borne_max.
+Pour modifier le pas entre deux tests jouez avec la variable pas.
+\end{verbatim}
+
+Le temps d'execution est d'environ 16s.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{b} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{data} \PY{o}{=} \PY{n}{load}\PY{p}{(}\PY{n}{database}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chiffre}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{affichage}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{nb\PYZus{}voisin} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{borne\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mf}{0.15}\PY{p}{)}
+        \PY{n}{pas} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mf}{0.15}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{nb\PYZus{}plis} \PY{o}{=} \PY{l+m+mi}{5}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Augmentation du nombre de voisins utilisés de 3 à }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ avec un pas de }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{borne\PYZus{}max}\PY{p}{,}\PY{n}{pas}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Le temps d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{execution peut durer quelques 10aines de secondes (le temps s}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{affiche quand le calcul est terminé)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{borne\PYZus{}max}\PY{p}{,}\PY{n}{pas}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb+bp}{cls} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{i}\PY{p}{)}
+            \PY{n}{result} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score\PYZus{}modif}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{nb\PYZus{}plis}\PY{p}{)}
+            \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{nb\PYZus{}voisin}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+        \PY{n}{e} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{e}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{nb\PYZus{}voisin}\PY{p}{,} \PY{n}{scores}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{KNN}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Influence du nombre de voisins}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nombre de voisins}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pourcentage de Réussite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        \PY{n}{datapd} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pourcentage de réussite}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{scores}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nombre de voisins}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{nb\PYZus{}voisin} \PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{p}{\PYZcb{}}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{datapd}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Augmentation du nombre de voisins utilisés de 3 à 269 avec un pas de 26
+Le temps d'execution peut durer quelques 10aines de secondes (le temps s'affiche quand le calcul est terminé)
+17.059762477874756
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}     Pourcentage de réussite  Nombre de voisins
+        0                  0.966114                  3
+        1                  0.940546                 29
+        2                  0.923788                 55
+        3                  0.912651                 81
+        4                  0.895945                107
+        5                  0.888163                133
+        6                  0.878111                159
+        7                  0.869203                185
+        8                  0.864743                211
+        9                  0.857486                237
+        10                 0.852987                263
+\end{Verbatim}
+            
+    Plus le nombre de voisin augmente plus la précision diminue sur les
+données de chiffre, un nombre de voisin entre 3 et 30 semble être une
+bonne valeur. ***
+
+    \section{RandomForestClassifier}\label{randomforestclassifier}
+
+Dans la cellule suivante nous utilisons l'algorithme de forêt aléatoire.
+
+Nous faisons varier le nombre d'arbres de 1 à 40. (la précision reste
+relativement constante une fois les 30 arbres passés)
+
+\begin{verbatim}
+Vous pouvez changer la base de donnée utilisée en changeant le parametre database à la ligne 2 ("iris" "chiffre" "vin" ou "cancer" ).
+Pour changer le nombre d'arbres max à tester modifiez la valeur de borne_max.
+Pour modifier le pas entre deux tests jouez avec la variable pas.
+\end{verbatim}
+
+Le temps d'execution est d'environ 16s.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{b} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{data} \PY{o}{=} \PY{n}{load}\PY{p}{(}\PY{n}{database}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chiffre}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{affichage}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{nb\PYZus{}arbres} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{borne\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{40}
+        \PY{n}{pas} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{nb\PYZus{}plis} \PY{o}{=} \PY{l+m+mi}{5}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Augmentation du nombre d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{arbres de 1 à }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ avec un pas de }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{borne\PYZus{}max}\PY{p}{,}\PY{n}{pas}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Le temps d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{execution peut durer quelques 10aines de secondes (le temps s}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{affiche quand le calcul est terminé)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{borne\PYZus{}max}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{pas}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb+bp}{cls} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{n}{i}\PY{p}{)}
+            \PY{n}{result} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score\PYZus{}modif}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{nb\PYZus{}plis}\PY{p}{)}
+            \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{nb\PYZus{}arbres}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+        \PY{n}{e} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{e}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{nb\PYZus{}arbres}\PY{p}{,} \PY{n}{scores}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random forest}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Influance du nombre d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{arbres}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nombre d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{arbres}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pourcentage de Réussite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        \PY{n}{datapd} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pourcentage de réussite}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{scores}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{borne\PYZus{}max}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nombre d}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{arbres}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{nb\PYZus{}arbres} \PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{borne\PYZus{}max}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{p}{\PYZcb{}}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{datapd}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Augmentation du nombre d'arbres de 1 à 40 avec un pas de 1
+Le temps d'execution peut durer quelques 10aines de secondes (le temps s'affiche quand le calcul est terminé)
+10.33961534500122
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}     Pourcentage de réussite  Nombre d'arbres
+        0                  0.697805                1
+        1                  0.726975                2
+        2                  0.798080                3
+        3                  0.832173                4
+        4                  0.848726                5
+        5                  0.877722                6
+        6                  0.884978                7
+        7                  0.897693                8
+        8                  0.886677                9
+        9                  0.897214               10
+        10                 0.904958               11
+        11                 0.906020               12
+        12                 0.912700               13
+        13                 0.917121               14
+        14                 0.907706               15
+        15                 0.922691               16
+        16                 0.917198               17
+        17                 0.916029               18
+        18                 0.908212               19
+        19                 0.923317               20
+        20                 0.926606               21
+        21                 0.927705               22
+        22                 0.927627               23
+        23                 0.929370               24
+        24                 0.931572               25
+        25                 0.927680               26
+        26                 0.933869               27
+        27                 0.929937               28
+        28                 0.933321               29
+        29                 0.925601               30
+        30                 0.932187               31
+        31                 0.937207               32
+        32                 0.936018               33
+        33                 0.931046               34
+        34                 0.936610               35
+        35                 0.932691               36
+        36                 0.929958               37
+        37                 0.936591               38
+        38                 0.932168               39
+        39                 0.933881               40
+\end{Verbatim}
+            
+    Le taux de réussite semble tendre vers 0.93, nous pouvons constater une
+croissance très rapide d'un arbre à environs 10 arbres, ensuite entre 30
+et 200 la valeur change peu (testé précédemment mais retour à 40 car le
+calcul devient très long)
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \section{Autres possibilités}\label{autres-possibilituxe9s}
+
+Le lien suivant donne un affichage pour plusieurs classifieurs fournis
+dans sklearn.
+
+https://scikit-learn.org/stable/auto\_examples/classification/plot\_classifier\_comparison.html\#sphx-glr-auto-examples-classification-plot-classifier-comparison-py
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

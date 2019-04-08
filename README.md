@@ -23,3 +23,4 @@ Il est aussi possible de lancer la version `comparaison_algo_classification.pỳ
 
 Vous pourrez trouver le code avec les sorties et un affichage correct sans installer annaconda ou jupyter à l'adresse suivante : https://github.com/Cyril-Grl/apprentissage
 
+Si l'affichage ne fonctionne pas sur GitHub vous pouvez utiliser le lien suivant : https://nbviewer.jupyter.org/github/Cyril-Grl/apprentissage/blob/master/comparaison_algo_classification.ipynb (du site https://nbviewer.jupyter.org/)
